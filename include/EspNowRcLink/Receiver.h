@@ -34,7 +34,7 @@ private:
   uint8_t _peer[WIFIESPNOW_ALEN] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
   uint32_t _next_beacon = 0;
   uint32_t _next_alive = 0;
-  State _state = BEACON;
+  State _state = RECEIVING; //No pair
   volatile bool _new_data = false;
 };
 

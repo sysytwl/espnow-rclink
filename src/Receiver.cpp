@@ -27,7 +27,7 @@ void Receiver::_handleRx(const uint8_t *mac, const uint8_t *buf, size_t count, v
     std::copy_n(mac, WIFIESPNOW_ALEN, dev->_peer);
     dev->_state = PAIR;
   }
-  if(buf[0] == RC_DATA && dev->_state == RECEIVING && dev->_allowed(mac))
+  if(buf[0] == RC_DATA && dev->_state == RECEIVING)//&& dev->_allowed(mac) No check of mac
   {
     std::copy_n(buf, std::min((size_t)sizeof(MessageRc), count), (uint8_t*)&dev->_channels);
     dev->_new_data = true;
@@ -73,7 +73,7 @@ int Receiver::update()
       _handlePair();
       break;
     case RECEIVING:
-      _handleAlive();
+      //_handleAlive(); //No response to rise the speed
       break;
   }
   return 1;
