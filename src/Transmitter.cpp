@@ -9,7 +9,7 @@ template<typename M>
 void _send(const uint8_t* mac, M& m)
 {
   m.csum = checksum(m);
-  WifiEspNow.send(mac, (const uint8_t*)&m, sizeof(M));
+  WifiEspNow.send(mac, (const uint8_t*)&m, sizeof(m));
 }
 
 void Transmitter::_handleRx(const uint8_t *mac, const uint8_t *buf, size_t count, void *arg)
@@ -36,12 +36,12 @@ int Transmitter::begin(bool enSoftAp)
 {
   if(enSoftAp)
   {
-    if(!WiFi.softAP("ESPNOW-TX", nullptr, _channel, 1)) return 0;
+    if(!WiFi.softAP("ESPNOW-TX", nullptr, 13, 1)) return 0;
   }
 
   if (!WifiEspNow.begin()) return 0;
 
-  WifiEspNow.addPeer(_peer);
+  WifiEspNow.addPeer(_peer, 0, nullptr, 0);
   //WifiEspNow.onReceive(_handleRx, this);
 
   return 1;
