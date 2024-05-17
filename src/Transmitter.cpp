@@ -41,7 +41,8 @@ int Transmitter::begin(bool enSoftAp)
 
   if (!WifiEspNow.begin()) return 0;
 
-  WifiEspNow.onReceive(_handleRx, this);
+  WifiEspNow.addPeer(_peer);
+  //WifiEspNow.onReceive(_handleRx, this);
 
   return 1;
 }
@@ -60,7 +61,7 @@ int Transmitter::update()
   }
 
   // process response queue
-  _handleReceived();
+  //_handleReceived();
 
   return 0;
 }

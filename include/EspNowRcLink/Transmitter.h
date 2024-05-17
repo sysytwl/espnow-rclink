@@ -20,6 +20,8 @@ public:
   int getSensor(size_t sensorId) const;
   void commit();
 
+  uint8_t _peer[WIFIESPNOW_ALEN] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+
 private:
   void _handleDiscovery();
   void _handleTransmit();
@@ -32,9 +34,8 @@ private:
   MessageRc _channels;
   MessageFc _sensors;
   size_t _channel = WIFI_CHANNEL_MIN;
-  uint8_t _peer[WIFIESPNOW_ALEN] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
   uint32_t _next_discovery = 0;
-  State _state = DISCOVERING;
+  State _state = TRANSMITTING;
   std::queue<Message> _queue;
   bool _ready = false;
 };
